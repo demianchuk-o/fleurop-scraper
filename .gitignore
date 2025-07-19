@@ -60,6 +60,7 @@ coverage.xml
 
 # Scrapy
 .scrapy/
+*.csv
 
 # Poetry / Virtual Environments
 .venv/

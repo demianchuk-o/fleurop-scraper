@@ -3,7 +3,8 @@ import scrapy
 class FleuropProductItem(scrapy.Item):
     product_url = scrapy.Field()
     name = scrapy.Field()
-    available_dates = scrapy.Field()
+    available_start_date = scrapy.Field()
+    available_end_date = scrapy.Field()
     variants = scrapy.Field()
     description = scrapy.Field()
     main_flowers = scrapy.Field()

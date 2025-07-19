@@ -18,7 +18,15 @@ class BouquetsSpider(scrapy.Spider):
         item = FleuropProductItem()
         item['product_url'] = response.url
         item['name'] = response.css('div.product-heading h1::text').get('').strip()
-        item['available_dates'] = response.css('div.deliveryPeriod::text').get('').strip()
+        available_dates_text = response.css('div.deliveryPeriod::text').get('').strip()
+        item['available_start_date'] = None
+        item['available_end_date'] = None
+
+        if available_dates_text:
+            match = re.search(r'(\d{2}\.\d{2}\.) - (\d{2}\.\d{2}\.)', available_dates_text)
+            if match:
+                item['available_start_date'] = match.group(1).strip()[:-1]
+                item['available_end_date'] = match.group(2).strip()[:-1]
 
         variants = []
         for variant_selector in response.css('label.product-detail-configurator-option-label.is-display-text'):

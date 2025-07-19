@@ -94,7 +94,8 @@ FEEDS = {
         'fields': [
             'product_url',
             'name',
-            'available_dates',
+            'available_start_date',
+            'available_end_date',
             'variants',
             'description',
             'main_flowers',

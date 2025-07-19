@@ -16,7 +16,7 @@ ADDONS = {}
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = "fleurop_scraper (+http://www.yourdomain.com)"
+USER_AGENT = "fleurop_scraper"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -85,3 +85,25 @@ DOWNLOAD_DELAY = 1
 
 # Set settings whose default value is deprecated to a future-proof value
 FEED_EXPORT_ENCODING = "utf-8"
+
+FEEDS = {
+    'bouquets.csv': {
+        'format': 'csv',
+        'encoding': 'utf8',
+        'store_empty': False,
+        'fields': [
+            'product_url',
+            'name',
+            'available_dates',
+            'variants',
+            'description',
+            'main_flowers',
+            'main_colors',
+            'delivery_description',
+            'delivery_cost_euro',
+            'image_urls',
+
+        ],
+        'overwrite': True,
+    },
+}

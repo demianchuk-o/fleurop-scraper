@@ -49,6 +49,6 @@ class BouquetsSpider(scrapy.Spider):
 
         cost_text = response.css('div.pdp-delivery-service-text div.cms-element-text::text').get('').strip()
         item['delivery_cost_euro'] = cost_text.split(' ')[-2].replace(',', '.') if cost_text else None
-        item['image_urls'] = response.css('img.gallery-slider-thumbnails-image.loaded.tns-complete::attr(src)').getall()
+        item['image_urls'] = response.css('img.gallery-slider-thumbnails-image::attr(src)').getall()
 
         yield item

@@ -1,12 +1,12 @@
-# Define here the models for your scraped items
-#
-# See documentation in:
-# https://docs.scrapy.org/en/latest/topics/items.html
-
 import scrapy
 
-
-class FleuropScraperItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+class FleuropProductItem(scrapy.Item):
+    product_url = scrapy.Field()
+    name = scrapy.Field()
+    available_dates = scrapy.Field()
+    variants = scrapy.Field()
+    description = scrapy.Field()
+    main_flowers = scrapy.Field()
+    main_colors = scrapy.Field()
+    delivery_info = scrapy.Field()
+    image_urls = scrapy.Field()

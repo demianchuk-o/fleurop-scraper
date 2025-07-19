@@ -42,8 +42,12 @@ class BouquetsSpider(scrapy.Spider):
         description_parts = response.css('div#description-content-container *::text').getall()
         item['description'] = ' '.join(part.strip() for part in description_parts if part.strip())
 
-        item['main_flowers'] = response.css('div.blossom-options div.blossom-name::text').getall()
-        item['main_colors'] = response.css('div.color-options div.color-name::text').getall()
+        item['main_flowers'] = self.clean_getall_str(
+            response.css('div.blossom-options div.blossom-name::text').getall()
+        )
+        item['main_colors'] = self.clean_getall_str(
+            response.css('div.color-options div.color-name::text').getall()
+        )
 
         item['delivery_description'] = response.css('div.pdp-delivery-description div.cms-element-text::text').get().strip()
 
@@ -52,3 +56,12 @@ class BouquetsSpider(scrapy.Spider):
         item['image_urls'] = response.css('img.gallery-slider-thumbnails-image::attr(src)').getall()
 
         yield item
+
+    def clean_getall_str(self, data_list):
+        """
+        Takes a list of strings from getall(), strips whitespace, returns a list of unique strings.
+        :param data_list:
+        :return: cleaned string
+        """
+        cleaned_items = [item.strip() for item in data_list if item.strip() and item.strip() != ',']
+        return ', '.join(set(cleaned_items))

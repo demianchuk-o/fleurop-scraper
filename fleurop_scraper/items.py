@@ -8,5 +8,6 @@ class FleuropProductItem(scrapy.Item):
     description = scrapy.Field()
     main_flowers = scrapy.Field()
     main_colors = scrapy.Field()
-    delivery_info = scrapy.Field()
+    delivery_description = scrapy.Field()
+    delivery_cost_euro = scrapy.Field()
     image_urls = scrapy.Field()

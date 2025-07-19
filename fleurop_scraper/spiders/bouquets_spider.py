@@ -1,4 +1,5 @@
 import scrapy
+import re
 from fleurop_scraper.items import FleuropProductItem
 
 class BouquetsSpider(scrapy.Spider):
@@ -20,13 +21,18 @@ class BouquetsSpider(scrapy.Spider):
         item['available_dates'] = response.css('div.deliveryPeriod::text').get('').strip()
 
         variants = []
-        for variant_selector in response.css('label.product-detail-configurator-option-label is-display-text'):
-            size = variant_selector.css('span.option-label::text').get('').strip()
-            price_text = variant_selector.css('div.option-price::text').get('').strip(),
+        for variant_selector in response.css('label.product-detail-configurator-option-label.is-display-text'):
+            size = variant_selector.css('div.option-label::text').get('').strip()
+            price_text = variant_selector.css('div.option-price::text').get('').strip()
 
+            price = None
+            if price_text:
+                if any(char.isdigit() for char in price_text):
+                    price = re.sub(r'[^\d\,]', '', price_text).strip().replace(',', '.')
+                else:
+                    price = price_text
 
-            price = price_text.split(' ')[0].replace(',', '.') if price_text else None
-            if size and price:
+            if size:
                 variants.append({
                     'size': size,
                     'price': price
